@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Filter Fun</title>
+  </head>
+  <body>
+    <h1>Filter Fun</h1>
+    <h3></h3>
+    <canvas id="canvaImage"> </canvas>
+    <br />
+    <span></span>
+    <input
+      type="file"
+      multiple="false"
+      accept="image/*"
+      id="imagefile"
+      onchange="loadImage()"
+    />
+    <br />
+    <button onclick="doGrayScale()">Gray Scale</button>
+    <button onclick="changeRedFilter()">Red</button>
+    <button onclick="resetImage()">Reset Image</button>
+    <script src="script.js"></script>
+    <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+  </body>
+</html>
