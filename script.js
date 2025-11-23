@@ -1,7 +1,7 @@
 let image = null;
 let grayImage = null;
 let redImage = null;
-let rainbowImage = null;
+let greenImage = null;
 let reImage = null;
 
 function loadImage() {
@@ -12,7 +12,7 @@ function loadImage() {
   image = new SimpleImage(inputimage);
   grayImage = new SimpleImage(inputimage);
   redImage = new SimpleImage(inputimage);
-  rainbowImage = new SimpleImage(inputimage);
+  greenImage = new SimpleImage(inputimage);
   reImage = new SimpleImage(inputimage);
 
   image.drawTo(canvaImage);
@@ -36,7 +36,57 @@ function doGrayScale() {
 }
 
 function changeRedFilter() {
-  alert("Image Red Filter Changed");
+  let avg = 0;
+  for (let pixel of redImage.values()) {
+    avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
+    if (avg < 128) {
+      pixel.setRed(avg * 2);
+      pixel.setGreen(0);
+      pixel.setBlue(0);
+    } else {
+      pixel.setRed(255);
+      pixel.setGreen(avg * 2 - 255);
+      pixel.setBlue(avg * 2 - 255);
+    }
+  }
+}
+
+function doRedFilter() {
+  let canvaImage = document.getElementById("canvaImage");
+  if (imageIsLoaded(redImage)) {
+    changeRedFilter();
+    redImage.drawTo(canvaImage);
+  }
+}
+
+function changeGreenDotFilter() {
+  let avg = 0;
+  for (let pixel of greenImage.values()) {
+    avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
+    let x = pixel.getX();
+    let y = pixel.getY();
+    if (x % 2 == 0 && y % 2 == 0) {
+      pixel.setRed(avg);
+      pixel.setGreen(0);
+      pixel.setBlue(0);
+    } else if (x % 5 == 0 && y % 5 == 0) {
+      pixel.setRed(0);
+      pixel.setGreen(0);
+      pixel.setBlue(avg);
+    } else {
+      pixel.setRed(0);
+      pixel.setGreen(avg);
+      pixel.setBlue(0);
+    }
+  }
+}
+
+function doGreenDotFilter() {
+  let canvaImage = document.getElementById("canvaImage");
+  if (imageIsLoaded(greenImage)) {
+    changeGreenDotFilter();
+    greenImage.drawTo(canvaImage);
+  }
 }
 
 function resetImage() {
